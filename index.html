@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energi Winners Portal | Team Energi</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://drive.google.com">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: {
+                        darkbg: '#050508', darkcard: '#0a0a0f',
+                        energi: { cyan: '#00ffff', blue: '#0066ff', purple: '#9900ff', gold: '#D4AF37', goldlight: '#F3E5AB' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkbg text-slate-300 font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-energi-gold/40 selection:text-white transition-colors duration-500">
+
+    <div class="fixed inset-0 z-0 pointer-events-none bg-dots opacity-30"></div>
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="aurora-blob aurora-1"></div>
+        <div class="aurora-blob aurora-2"></div>
+        <div class="aurora-blob aurora-3"></div>
+    </div>
+
+    <div id="loading-screen" class="fixed inset-0 z-[9999] bg-[#050508] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-1000">
+        
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05)_0%,transparent_60%)]"></div>
+
+        <div id="loading-content" class="relative z-10 flex flex-col items-center transition-all duration-500 ease-in-out">
+            
+            <div class="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center mb-8">
+                <div class="absolute inset-0 border-t-2 border-l-2 border-energi-gold/80 rounded-full animate-[spin_2s_linear_infinite]"></div>
+                <div class="absolute inset-2 border-b-2 border-r-2 border-energi-cyan/80 rounded-full animate-[spin_3s_linear_infinite_reverse]"></div>
+                <div class="absolute inset-0 bg-energi-gold rounded-full blur-2xl opacity-20 animate-pulse"></div>
+                
+                <img src="images/energylogo.png" alt="Logo Energi" 
+                     onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>'" 
+                     class="relative z-10 w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(212,175,55,0.8)] animate-pulse">
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-energi-gold via-white to-energi-gold animate-[gradient-x_3s_linear_infinite] tracking-[0.2em] drop-shadow-lg">
+                IGNITING<span class="text-white ml-3 font-sans not-italic font-bold tracking-widest">PORTAL</span>
+            </h1>
+            
+            <div class="mt-6 flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-energi-cyan animate-ping" style="animation-delay: 0s;"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-energi-gold animate-ping" style="animation-delay: 0.2s;"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-energi-cyan animate-ping" style="animation-delay: 0.4s;"></span>
+            </div>
+        </div>
+
+        <div id="burn-effect" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 bg-gradient-to-tr from-energi-gold via-white to-energi-cyan rounded-full mix-blend-screen filter blur-[40px] opacity-0 pointer-events-none transition-all duration-[700ms] ease-in-out"></div>
+        
+    </div>
+        
+
+    <nav class="sticky top-0 z-50 bg-darkbg/60 backdrop-blur-xl border-b border-white/10 shadow-lg transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap justify-between items-center gap-4 relative">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-tr from-energi-gold to-yellow-200 rounded-lg flex items-center justify-center font-black text-darkbg shadow-[0_0_20px_rgba(212,175,55,0.4)] tracking-tighter">ENG</div>
+                <div class="text-xl md:text-2xl font-800 text-white tracking-tighter">
+                    ENERGI<span class="text-energi-gold font-serif italic font-normal ml-1">Portal</span>
+                </div>
+            </div>
+
+           <div class="flex items-center gap-2 md:gap-4 ml-auto">
+                <div id="google_translate_element" class="hidden md:flex items-center h-8 overflow-hidden rounded-md opacity-80 hover:opacity-100 transition-opacity"></div>
+
+                <button id="theme-toggle" class="p-2 text-xl md:text-2xl text-white focus:outline-none hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" title="Ubah Tema">☀️</button>
+
+                <div class="relative md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-2xl text-white focus:outline-none p-1">☰</button>
+                </div>
+            </div>
+
+            <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:pb-0 pt-4 md:pt-0 border-t border-white/10 md:border-none">
+                <ul class="flex flex-col md:flex-row justify-center gap-2 bg-transparent md:bg-white/5 p-0 md:p-1.5 rounded-2xl md:rounded-full md:border border-white/10 backdrop-blur-md">
+                    <li><button class="nav-btn active w-full md:w-auto px-6 py-2 rounded-xl md:rounded-full text-sm font-semibold transition-all text-left md:text-center" onclick="openTab('beranda', this)">Beranda</button></li>
+                    <li><button class="nav-btn w-full md:w-auto px-6 py-2 rounded-xl md:rounded-full text-sm font-semibold text-slate-400 hover:text-white transition-all text-left md:text-center" onclick="openTab('pemenang', this)">Pemenang</button></li>
+                    <li><button class="nav-btn w-full md:w-auto px-6 py-2 rounded-xl md:rounded-full text-sm font-semibold text-slate-400 hover:text-white transition-all text-left md:text-center" onclick="openTab('dokumentasi', this)">Dokumentasi</button></li>
+                    <li><button class="nav-btn w-full md:w-auto px-6 py-2 rounded-xl md:rounded-full text-sm font-semibold text-slate-400 hover:text-white transition-all text-left md:text-center" onclick="openTab('tentang', this)">Team</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <main class="relative z-10 flex-grow max-w-7xl mx-auto w-full p-4 sm:p-6 my-6 md:my-10" id="main-content">
+        
+       <section id="beranda" class="section-content block animate-fade-in">
+            <div class="bg-darkcard/40 backdrop-blur-xl p-6 md:p-12 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(0,255,255,0.05)] relative overflow-hidden group">
+                <div class="grid lg:grid-cols-2 gap-10 items-center">
+                    
+                    <div class="text-center lg:text-left z-10 flex flex-col items-center lg:items-start">
+                        
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-energi-gold/10 border border-energi-gold/30 text-energi-gold text-xs font-bold uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                            <span class="animate-pulse text-base">🏆</span> Hall of Fame 2026
+                        </div>
+                        
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-black mb-4 leading-tight tracking-wide">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-energi-gold via-yellow-100 to-energi-gold animate-gradient-x drop-shadow-[0_0_15px_rgba(212,175,55,0.6)] pb-2 inline-block">
+                                Penghormatan <br class="hidden lg:block"/> Kepada Pemenang
+                            </span>
+                        </h1>
+                        
+                        <div class="h-20 md:h-24 mb-4 flex items-start justify-center lg:justify-start">
+                            <p class="text-base md:text-lg text-slate-300 font-light leading-relaxed max-w-lg">
+                                <span id="typing-text"></span><span class="animate-pulse text-energi-cyan font-bold text-xl ml-1 relative top-0.5">|</span>
+                            </p>
+                        </div>
+
+                        <button onclick="document.querySelectorAll('.nav-btn')[1].click()" class="hidden md:block px-8 py-3 bg-gradient-to-r from-energi-cyan to-blue-600 text-white font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,255,255,0.3)] mt-auto">
+                            Lihat Daftar Pemenang
+                        </button>
+
+                        <div class="md:hidden mt-2 w-full bg-gradient-to-r from-energi-cyan/10 to-transparent border-l-4 border-energi-cyan rounded-r-xl p-4 shadow-lg text-left animate-fade-in relative">
+                            <p class="text-sm text-slate-300 leading-relaxed flex gap-3">
+                                <span class="text-xl animate-bounce">💡</span>
+                                <span>
+                                    <strong class="text-energi-cyan">Petunjuk:</strong> Klik ikon garis tiga <strong>( ☰ )</strong> di sudut atas untuk melihat halaman 
+                                    <span class="text-white font-medium">Pemenang</span>, 
+                                    <span class="text-white font-medium">Dokumentasi</span>, dan 
+                                    <span class="text-white font-medium">Team Energy</span>.
+                                </span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="relative w-full max-w-lg mx-auto lg:mx-0 mt-8 lg:mt-0 z-10 p-2">
+    <div class="absolute -inset-4 bg-gradient-to-tr from-energi-gold to-energi-purple rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+    
+    <img src="images/energiteam.png" 
+         alt="Tim Energi" 
+         class="relative w-full h-auto bg-darkcard/50 rounded-2xl object-contain border border-white/20 shadow-2xl transition-transform duration-700 hover:scale-[1.02]">
+</div>
+
+                </div>
+            </div>
+            
+            <div class="w-full max-w-5xl mx-auto px-4 mt-8 md:mt-16 mb-16 md:mb-20">
+    <div class="text-center mb-10">
+        <h3 class="text-energi-gold font-serif text-2xl md:text-3xl font-bold tracking-wider mb-2">Solar PV Showcase</h3>
+        <p class="text-slate-400 text-xs md:text-sm uppercase tracking-[0.3em]">Harnessing the Power of Sun</p>
+    </div>
+
+    <div class="video-premium-frame relative group">
+        
+       <div class="w-full max-w-4xl mx-auto mt-8 md:mt-12 relative group z-10 px-4 md:px-0">
+    
+    <div class="absolute -inset-2 bg-gradient-to-r from-energi-cyan via-energi-gold to-energi-cyan rounded-2xl blur-xl opacity-20 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
+    
+    <div class="relative w-full rounded-2xl overflow-hidden bg-[#050508] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.01] pb-[70%] md:pb-[56.25%]">
+        
+        <iframe 
+            src="https://drive.google.com/file/d/1ZxP_KxdulxW0xgWUW70FqpE-TVrqKRlh/preview" 
+            loading="lazy" 
+            class="absolute top-0 left-0 w-full h-full border-0" 
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
+            allowfullscreen="true" 
+            webkitallowfullscreen="true" 
+            mozallowfullscreen="true">
+        </iframe>
+        
+    </div>
+</div>
+
+            <div class="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-energi-gold opacity-50 pointer-events-none"></div>
+            <div class="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-energi-cyan opacity-50 pointer-events-none"></div>
+            <div class="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-energi-cyan opacity-50 pointer-events-none"></div>
+            <div class="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-energi-gold opacity-50 pointer-events-none"></div>
+        </div>
+    </div>
+</div>
+        </section>
+
+        <section id="pemenang" class="section-content hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-800 text-white tracking-tighter mb-2">🏆 Daftar <span class="text-transparent bg-clip-text bg-gradient-to-r from-energi-gold to-yellow-200">100 Pemenang</span></h2>
+                <p class="text-slate-400 text-sm md:text-base">Menampilkan peserta dengan nilai tertinggi.</p>
+            </div>
+            <div class="max-w-2xl mx-auto mb-8 relative">
+                <span class="absolute left-5 top-3.5 text-slate-400 text-lg">🔍</span>
+                <input type="text" id="search-input" placeholder="Cari NIK, Nama, atau Departemen..." class="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-6 text-white placeholder-slate-500 focus:outline-none focus:border-energi-gold focus:bg-white/10 transition-all shadow-lg backdrop-blur-sm">
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div id="winner-list" class="grid gap-3 md:gap-4 min-h-[500px] content-start"></div>
+                <div id="empty-state" class="hidden text-center py-10 text-slate-500"><span class="text-4xl mb-3 block">😕</span><p>Peserta tidak ditemukan.</p></div>
+                <div class="flex justify-center items-center gap-2 mt-8 flex-wrap" id="pagination-container"></div>
+            </div>
+        </section>
+
+        <section id="dokumentasi" class="section-content hidden">
+            <h2 class="text-3xl md:text-4xl font-800 text-center text-white mb-10 tracking-tighter">📸 <span class="text-energi-purple">Kilas Balik</span> Juara</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6" id="gallery-container"></div>
+        </section>
+
+        <section id="tentang" class="section-content hidden">
+            <div class="max-w-4xl mx-auto mb-20">
+                <div class="bg-darkcard/40 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-3xl shadow-[0_0_40px_rgba(212,175,55,0.05)] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-energi-gold/5 rounded-full blur-[80px]"></div>
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6 text-center">Filosofi <span class="text-energi-gold">Energi</span></h2>
+                    <div class="space-y-6 text-slate-300 font-light leading-relaxed text-sm md:text-base">
+                        <p><strong class="text-white font-semibold">Apa itu Energi?</strong> Energi bukan sekadar nama, melainkan perwujudan dari semangat pantang menyerah, inovasi tanpa batas, dan sinergi antar individu. Kami hadir untuk menjadi katalisator perubahan dan kemajuan sumber daya manusia.</p>
+                        <p><strong class="text-white font-semibold">Sejarah Kami.</strong> Berawal dari inisiatif kecil untuk meningkatkan kapabilitas internal, Team Energi perlahan bertransformasi menjadi divisi inti yang menangani pengembangan kompetensi berskala besar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full flex flex-col items-center text-center mb-16 relative z-10">
+    
+    <div class="logo-float relative inline-flex items-center justify-center w-28 h-28 mb-8 group overflow-hidden rounded-full">
+    
+    <div class="absolute inset-0 bg-gradient-to-r from-energi-gold via-energi-cyan to-energi-gold rounded-full blur-xl opacity-40 group-hover:opacity-80 transition-opacity duration-700"></div>
+    
+    <div class="absolute inset-[-6px] rounded-full border-[1.5px] border-dashed border-energi-gold/40 animate-[spin_15s_linear_infinite]"></div>
+    <div class="absolute inset-[-12px] rounded-full border border-dotted border-energi-cyan/30 animate-[spin_20s_linear_infinite_reverse]"></div>
+    
+    <img src="images/energylogo.png" 
+         alt="ENG Logo" 
+         class="absolute inset-0 w-full h-full object-cover filter drop-shadow-[0_0_10px_rgba(212,175,55,0.8)] group-hover:scale-110 transition-transform duration-500 rounded-full border border-white/10 shadow-[inset_0_0_25px_rgba(212,175,55,0.2)]">
+         
+</div>
+
+    <h2 class="text-4xl md:text-5xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-energi-gold to-white tracking-wide mb-4 text-glow-premium">
+        Struktur Inti
+    </h2>
+    
+    <div class="flex items-center justify-center gap-4 opacity-90 w-full max-w-xs">
+        <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent to-energi-cyan/60"></div>
+        <div class="w-2.5 h-2.5 bg-energi-gold diamond-accent shadow-[0_0_15px_#D4AF37]"></div>
+        <div class="h-[1px] flex-grow bg-gradient-to-l from-transparent to-energi-cyan/60"></div>
+    </div>
+    
+    <p class="mt-5 text-xs md:text-sm text-slate-300 font-light tracking-[0.3em] uppercase">
+        Pilar Penggerak Energi Winners
+    </p>
+    
+</div>
+
+<div id="team-container"></div>
+
+            <div class="max-w-5xl mx-auto mb-24 border-t border-white/10 pt-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-serif font-bold text-white">Hubungi <span class="text-energi-gold">Kami</span></h2>
+                    <p class="text-slate-400 mt-2 font-light">Jangan ragu untuk menyapa atau bertanya kepada kami.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 hover:border-energi-gold/50 transition-all group">
+                        <div class="w-14 h-14 bg-darkbg rounded-full flex items-center justify-center text-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(212,175,55,0.2)]">📞</div>
+                        <h4 class="text-white font-bold mb-1">Extension</h4>
+                        <p class="text-energi-gold font-mono text-lg font-semibold">1234 / 1235</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 hover:border-energi-gold/50 transition-all group">
+                        <div class="w-14 h-14 bg-darkbg rounded-full flex items-center justify-center text-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(212,175,55,0.2)]">📧</div>
+                        <h4 class="text-white font-bold mb-1">Email</h4>
+                        <p class="text-energi-gold text-sm font-semibold">support@teamenergi.com</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 hover:border-energi-gold/50 transition-all group">
+                        <div class="w-14 h-14 bg-darkbg rounded-full flex items-center justify-center text-2xl mb-4 border border-white/10 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(212,175,55,0.2)]">📍</div>
+                        <h4 class="text-white font-bold mb-1">Lokasi</h4>
+                        <p class="text-energi-gold text-sm font-semibold">Gedung Inovasi, Lt. 8</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-darkcard/60 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-32 -right-32 w-64 h-64 bg-energi-cyan/10 rounded-full blur-[80px]"></div>
+                
+                <div class="text-center mb-8 relative z-10">
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-white mb-2">Kotak <span class="text-energi-cyan">Masukan</span></h2>
+                    <p class="text-slate-400 text-sm">Tinggalkan pesan, kesan, atau diskusi seputar acara.</p>
+                </div>
+
+                <div id="chat-container" class="space-y-4 mb-8 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar relative z-10">
+                    <div class="text-center text-slate-500 py-10 text-sm">Memuat pesan...</div>
+                    </div>
+
+                <div class="border-t border-white/10 pt-6 relative z-10">
+                    <div id="login-section" class="flex flex-col items-center text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-white mb-4 text-sm font-light">Silakan login menggunakan akun Google Anda untuk bergabung dalam diskusi.</p>
+                        <button id="btn-login" class="flex items-center gap-3 bg-white text-darkbg px-6 py-2.5 rounded-full font-bold hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                            Login dengan Google
+                        </button>
+                    </div>
+
+                    <div id="input-section" class="hidden flex-col gap-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <img id="user-avatar" src="" class="w-10 h-10 rounded-full border border-energi-gold/50" alt="Avatar">
+                                <div>
+                                    <p id="user-name" class="text-white text-sm font-bold leading-none"></p>
+                                    <p class="text-energi-cyan text-[10px] uppercase tracking-widest mt-1">Siap memberi masukan</p>
+                                </div>
+                            </div>
+                            <button id="btn-logout" class="text-xs text-red-400 hover:text-red-300 transition-colors border border-red-500/30 px-3 py-1 rounded-full">Logout</button>
+                        </div>
+                        <div class="flex gap-3">
+                            <input type="text" id="chat-input" placeholder="Tulis masukan Anda di sini..." class="flex-grow bg-darkbg/80 border border-white/10 rounded-full py-3 px-6 text-white placeholder-slate-500 focus:outline-none focus:border-energi-cyan focus:bg-darkcard transition-all" autocomplete="off">
+                            <button id="btn-send" class="bg-gradient-to-r from-energi-cyan to-blue-500 text-darkbg w-12 h-12 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,255,255,0.4)]">
+                                ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="border-t border-white/5 bg-darkbg mt-auto py-6 relative z-10 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 text-center flex flex-col items-center justify-center">
+            <p class="text-sm text-slate-500 font-light">&copy; 2026 Energi. All Rights Reserved.</p>
+            <p class="text-xs text-slate-600 mt-2 tracking-widest uppercase flex items-center gap-2">
+                Made with <span class="text-yellow-400 text-lg animate-bounce">⚡</span> Energy
+            </p>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden justify-center items-center opacity-0 transition-opacity duration-300 backdrop-blur-md" onclick="closeLightbox()">
+        <button class="absolute top-5 right-5 md:top-10 md:right-10 text-white text-5xl hover:text-energi-gold transition-colors z-50">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[85vh] rounded-xl shadow-2xl border border-white/10 scale-95 transition-transform duration-300 object-contain">
+    </div>
+
+    <div class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-2 md:p-3 rounded-full shadow-2xl flex items-center gap-3 md:gap-4 transition-all hover:bg-white/10 group cursor-pointer" onclick="toggleRadio(event)">
+            <button id="radio-btn" class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-tr from-energi-cyan to-energi-blue rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(0,255,255,0.3)] group-hover:scale-105 transition-transform">
+                <svg id="icon-play" class="w-4 h-4 md:w-5 md:h-5 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="icon-pause" class="w-4 h-4 md:w-5 md:h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <div class="pr-2 md:pr-4 flex flex-col justify-center">
+                <div class="flex items-end gap-2 mb-0.5">
+                    <p class="text-xs md:text-sm font-bold text-white leading-none">Global Hits</p>
+                    <div id="radio-eq" class="hidden items-end gap-[2px] h-3 mb-[2px]">
+                        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                    </div>
+                </div>
+                <p class="text-[9px] md:text-[10px] text-slate-400 leading-none">Live Streaming Radio</p>
+            </div>
+            <audio id="radio-stream" src="https://icecast.omroep.nl/3fm-bb-mp3" preload="none"></audio>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        /* =======================================================
+           !!! PENTING: GANTI KONFIGURASI INI DENGAN FIREBASE ANDA !!!
+           ======================================================= */
+        const firebaseConfig = {
+  apiKey: "AIzaSyCu8tMyipYNYUetd7u-wk2-H4WBVDN9PJ8",
+  authDomain: "portal-energy-b4807.firebaseapp.com",
+  projectId: "portal-energy-b4807",
+  storageBucket: "portal-energy-b4807.firebasestorage.app",
+  messagingSenderId: "850878607601",
+  appId: "1:850878607601:web:f93de8d0ba886734bcb950"
+};
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // UI Elements
+        const loginSection = document.getElementById('login-section');
+        const inputSection = document.getElementById('input-section');
+        const btnLogin = document.getElementById('btn-login');
+        const btnLogout = document.getElementById('btn-logout');
+        const btnSend = document.getElementById('btn-send');
+        const chatInput = document.getElementById('chat-input');
+        const chatContainer = document.getElementById('chat-container');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+
+        // Auth State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is logged in
+                loginSection.classList.add('hidden');
+                inputSection.classList.remove('hidden');
+                inputSection.classList.add('flex');
+                userAvatar.src = user.photoURL;
+                userName.textContent = user.displayName;
+            } else {
+                // User is signed out
+                loginSection.classList.remove('hidden');
+                inputSection.classList.add('hidden');
+                inputSection.classList.remove('flex');
+            }
+        });
+
+        // Login
+        btnLogin.addEventListener('click', () => {
+            signInWithPopup(auth, provider).catch(error => alert("Login gagal: " + error.message));
+        });
+
+        // Logout
+        btnLogout.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // Send Message
+        const sendMessage = async () => {
+            const text = chatInput.value.trim();
+            if (text && auth.currentUser) {
+                const user = auth.currentUser;
+                chatInput.value = ''; // Kosongkan input
+                try {
+                    await addDoc(collection(db, "comments"), {
+                        text: text,
+                        uid: user.uid,
+                        name: user.displayName,
+                        photo: user.photoURL,
+                        timestamp: serverTimestamp()
+                    });
+                } catch (e) {
+                    alert("Gagal mengirim pesan. Pastikan aturan database Firestore mengizinkan write.");
+                }
+            }
+        };
+
+        btnSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Listen for Messages Real-time
+        const q = query(collection(db, "comments"), orderBy("timestamp", "asc"));
+        onSnapshot(q, (snapshot) => {
+            chatContainer.innerHTML = ''; // Clear loading text
+            if (snapshot.empty) {
+                chatContainer.innerHTML = '<div class="text-center text-slate-500 py-10 text-sm">Belum ada masukan. Jadilah yang pertama!</div>';
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const isMe = auth.currentUser && auth.currentUser.uid === data.uid;
+                
+                // Format Waktu (Jam:Menit)
+                let timeStr = '';
+                if(data.timestamp) {
+                    const date = data.timestamp.toDate();
+                    timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                }
+
+                const msgHTML = `
+                    <div class="flex gap-3 ${isMe ? 'flex-row-reverse' : ''} animate-fade-in">
+                        <img src="${data.photo || 'https://via.placeholder.com/40'}" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/10 flex-shrink-0" alt="Avatar">
+                        <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[80%]">
+                            <span class="text-[10px] md:text-xs text-slate-400 mb-1 ml-1 mr-1">${data.name} • ${timeStr}</span>
+                            <div class="px-4 py-2.5 rounded-2xl ${isMe ? 'bg-energi-cyan/20 text-white rounded-tr-sm border border-energi-cyan/30' : 'bg-white/5 text-slate-200 rounded-tl-sm border border-white/10'} text-sm md:text-base leading-relaxed">
+                                ${data.text}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', msgHTML);
+            });
+            
+            // Auto scroll ke bawah setiap ada pesan baru
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, (error) => {
+            chatContainer.innerHTML = '<div class="text-center text-red-400 py-10 text-sm">Gagal memuat pesan. Pastikan konfigurasi Firebase benar.</div>';
+        });
+    </script>
+
+</body>
+</html>
