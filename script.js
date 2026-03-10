@@ -207,8 +207,8 @@ function renderGallery() {
     // CONTOH: Array nama file foto yang ada di folder 'images' Anda.
     // Silakan tambah/kurangi dan ganti namanya sesuai foto asli Anda.
     const galleryImages = [
-        'pemenang_ip.jpeg', 'pemenang_p1.jpeg', 'pemenang_p3.jpeg', 'doc4.jpg', 'doc5.jpg',
-        'doc6.jpg', 'doc7.jpg', 'doc8.jpg', 'doc9.jpg', 'doc10.jpg'
+        'pemenang_ip.jpeg', 'pemenang_p1.jpeg', 'pemenang_p3.jpeg', 'pemenang_2nd.jpeg', 'pemenang_p2.jpeg',
+        'pemenang_p4.jpeg', 'pemenang_rubber.jpeg', 'pemenang_p1..jpeg', 'pemenang_rubber2.jpeg', 'pemenang_rubber1.jpeg'
     ];
 
     galleryImages.forEach((imgName, index) => {
